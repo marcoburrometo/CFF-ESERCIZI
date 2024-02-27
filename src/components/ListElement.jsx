@@ -11,7 +11,13 @@ function ListElement(props) {
       <div>{props.title}</div>
       <div>{props.notes}</div>
       <div>{props.createDate.toLocaleString()}</div>
-      {props.completed ? "Completed" : "Not completed"}
+      <div>
+        <button onClick={props.onDelete}>X</button>
+        {!props.completed ? (
+          <button onClick={props.onComplete}>✔</button>
+        ) : null}
+        {props.completed ? "Completed" : "Not completed"}
+      </div>
     </div>
   );
 }

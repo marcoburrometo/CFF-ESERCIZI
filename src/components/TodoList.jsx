@@ -9,6 +9,21 @@ function TodoList() {
     setTodos([...todos, todo]);
   }
 
+  function removeTodo(todo) {
+    setTodos(todos.filter((t) => t !== todo));
+  }
+
+  function completeTodo(todo) {
+    const newTodos = todos.map((t) => {
+      if (t === todo) {
+        return { ...t, completed: true };
+      }
+      return t;
+    });
+
+    setTodos(newTodos);
+  }
+
   return (
     <div>
       <h1>TODO list</h1>
@@ -22,6 +37,12 @@ function TodoList() {
           color={todo.color}
           createDate={todo.createDate}
           completed={todo.completed}
+          onDelete={function () {
+            removeTodo(todo);
+          }}
+          onComplete={function () {
+            completeTodo(todo);
+          }}
         />
       ))}
     </div>

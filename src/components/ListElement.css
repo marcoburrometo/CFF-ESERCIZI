@@ -3,5 +3,10 @@
     padding: 10px;
     margin: 10px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    transition: transform  0.2s;
+}
+
+.list-element:hover {
+    transform: scale(1.05) rotate(-2deg);
 }
