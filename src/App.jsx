@@ -1,10 +1,10 @@
 import "./App.css";
-import TodoList from "./components/TodoList";
+import Palindrome from "./components/Palindrome";
 
 function App() {
   return (
     <div className="App">
-      <TodoList />
+      <Palindrome />
     </div>
   );
 }
