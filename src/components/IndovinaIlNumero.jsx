@@ -1,5 +1,6 @@
 import { useState } from "react";
-import fail from "../images/fail.jpeg";
+import GuessInput from "./GuessInput";
+import Feedback from "./Feedback";
 
 /**
  * Crea un giochino che permetta all’utente di indovinare
@@ -11,17 +12,18 @@ import fail from "../images/fail.jpeg";
  * Dividere nei componenti GuessInput e Feedback.
  * Aggiungere bottone “Ricomincia\Nuova Partita”
  * che generi un nuovo numero da indovinare.
- *
  */
 function IndovinaIlNumero() {
   const [numero, setNumero] = useState(Math.round(Math.random() * 100));
+  // "uno" | "due"
+  const [giocatore, setGiocatore] = useState("");
   const [tentativi, setTentativi] = useState(0);
-  const [numeroInput, setNumeroInput] = useState();
   const [indovinato, setIndovinato] = useState(false);
   const [altoOBasso, setAltoOBasso] = useState("");
 
-  function onClick() {
+  function indovina(numeroInput, g) {
     if (numeroInput == numero) {
+      setGiocatore(g);
       setIndovinato(true);
     } else {
       setTentativi(tentativi + 1);
@@ -36,54 +38,29 @@ function IndovinaIlNumero() {
 
   function ricomincia() {
     setTentativi(0);
-    setNumeroInput("");
     setNumero(Math.round(Math.random() * 100));
-  }
-
-  function renderFeedback() {
-    if (!numeroInput) {
-      return null;
-    }
-    if (indovinato) {
-      return (
-        <p>
-          hai indovinato dopo {tentativi} tentativi!
-          <button onClick={ricomincia}>Ricomincia</button>
-        </p>
-      );
-    }
-    if (altoOBasso === "alto") {
-      return (
-        <p>
-          <img height={100} src={fail} alt="fail" />
-          <div>troppo alto</div>
-        </p>
-      );
-    }
-    if (altoOBasso === "basso") {
-      return (
-        <p>
-          <img height={100} src={fail} alt="fail" />
-          <div>troppo basso</div>
-        </p>
-      );
-    }
   }
 
   return (
     <div>
       <h3>indovina il numero da 0 a 100</h3>
-      <input
-        type="number"
-        max="100"
-        min="0"
-        onChange={(ev) => {
-          setNumeroInput(ev.target.value);
+      <GuessInput
+        onGuess={(val) => {
+          indovina(val, "uno");
         }}
       />
-      <button onClick={onClick}>indovina</button>
-      {renderFeedback()}
-      {/* <Feedback tentativi={tentativi} indovinato={indovinato} altoOBasso={altoOBasso} /> */}
+      <GuessInput
+        onGuess={(val) => {
+          indovina(val, "due");
+        }}
+      />
+      <Feedback
+        tentativi={tentativi}
+        indovinato={indovinato}
+        altoOBasso={altoOBasso}
+        ricomincia={ricomincia}
+        giocatore={giocatore}
+      />
     </div>
   );
 }
