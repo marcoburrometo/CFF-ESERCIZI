@@ -1,10 +1,10 @@
 import "./App.css";
-import Palindrome from "./components/Palindrome";
+import IndovinaIlNumero from "./components/IndovinaIlNumero";
 
 function App() {
   return (
     <div className="App">
-      <Palindrome />
+      <IndovinaIlNumero />
     </div>
   );
 }
