@@ -1,9 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddForm from "./AddForm";
 import ListElement from "./ListElement";
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
+
+  // All'inizio imposto i todo leggendoli dal localstorage
+  useEffect(() => {
+    const savedTodosString = localStorage.getItem("todos");
+    if (!savedTodosString) {
+      return;
+    }
+    const savedTodos = JSON.parse(savedTodosString);
+    setTodos(savedTodos);
+  }, []);
+
+  // Ogni volta che i todo cambiano, li salvo sul locastorage
+  useEffect(() => {
+    console.log("useEffect");
+    if (todos.length === 0) {
+      return;
+    }
+
+    document.title = `Hai ${todos.length} todo`;
+
+    const todosString = JSON.stringify(todos);
+    localStorage.setItem("todos", todosString);
+
+    return () => {
+      console.log("cleanup");
+    };
+  }, [todos]);
 
   function addTodo(todo) {
     setTodos([...todos, todo]);

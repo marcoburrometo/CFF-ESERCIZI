@@ -1,10 +1,10 @@
 import "./App.css";
-import IndovinaIlNumero from "./components/IndovinaIlNumero";
+import TodoList from "./components/TodoList";
 
 function App() {
   return (
     <div className="App">
-      <IndovinaIlNumero />
+      <TodoList />
     </div>
   );
 }
